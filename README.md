@@ -1,1 +1,3 @@
 # WallaceHesselmeister.github.io
+This is my website, named EX3, it stands for "Experiment 3", my first one was EX1, it was never released to the public, then i made an improved version of EX1 and decided to put it up, you can find it at doctorbean04.github.io.
+EX3 is a search engine, well, more like a homepage, there is a input box under the clock, enter what you want to search and press the search button, and it will run a search through google and get your information.
