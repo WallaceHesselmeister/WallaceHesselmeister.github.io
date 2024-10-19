@@ -69,6 +69,73 @@
         window.location.href = "https://tardisuniverse.com/stream/watch/shows/tadc/s1/e3";  // Replace with your desired link
       }
     }
+    // Function to parse YouTube-style timestamps (e.g., '1m30s', '2h15m10s')
+function parseTimestamp(timestamp) {
+  var totalSeconds = 0;
+  var timeRegex = /(\d+h)?(\d+m)?(\d+s)?/;
+  var match = timeRegex.exec(timestamp);
+
+  if (match) {
+    if (match[1]) totalSeconds += parseInt(match[1]) * 3600; // Hours to seconds
+    if (match[2]) totalSeconds += parseInt(match[2]) * 60;   // Minutes to seconds
+    if (match[3]) totalSeconds += parseInt(match[3]);        // Seconds
+  }
+
+  return totalSeconds;
+}
+
+// Set the countdown start time using YouTube timestamp format
+var countdownStartTime = '24m46s';  // Example: '1m30s' or '2h15m10s'
+var countdownDuration = 5;         // Countdown duration in seconds
+var redirectUrl = "https://tardisuniverse.com/stream/watch/shows/tadc/s1/e3";  // URL to redirect after countdown
+
+// Convert the timestamp to seconds
+var countdownStartTimeInSeconds = parseTimestamp(countdownStartTime);
+
+// Create the countdown element and append it to the body
+var countdownDiv = document.createElement('div');
+countdownDiv.id = 'countdown';
+countdownDiv.style.position = 'fixed';
+countdownDiv.style.top = '50%';
+countdownDiv.style.left = '50%';
+countdownDiv.style.transform = 'translate(-50%, -50%)';
+countdownDiv.style.fontSize = '36px';
+countdownDiv.style.color = '#ffffff';
+countdownDiv.style.background = 'rgba(0, 0, 0, 0.7)';
+countdownDiv.style.padding = '20px';
+countdownDiv.style.display = 'none';
+document.body.appendChild(countdownDiv);
+
+// Function to show the countdown
+function showCountdown() {
+  var timeLeft = countdownDuration;
+  countdownDiv.style.display = 'block';
+  countdownDiv.innerHTML = 'Next Episode In ' + timeLeft + ' seconds...';
+
+  var countdownInterval = setInterval(function() {
+    timeLeft--;
+    countdownDiv.innerHTML = 'Next Episode In ' + timeLeft + ' seconds...';
+    
+    if (timeLeft <= 0) {
+      clearInterval(countdownInterval);
+      window.location.href = redirectUrl;
+    }
+  }, 1000); // Countdown updates every second
+}
+
+// Trigger countdown based on the video time
+function onPlayerStateChange(event) {
+  if (event.data === YT.PlayerState.PLAYING) {
+    var checkTimeInterval = setInterval(function() {
+      var currentTime = player.getCurrentTime();
+      if (currentTime >= countdownStartTimeInSeconds) {
+        clearInterval(checkTimeInterval); // Stop checking time
+        showCountdown(); // Show countdown when the video hits the specific time
+      }
+    }, 1000); // Check the time every second
+  }
+}
+
   </script>
 
 </body>
