@@ -1,35 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>Blank Template for Bootstrap</title>
-        <!-- Bootstrap core CSS -->
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Custom styles for this template -->
-        <link href="style.css" rel="stylesheet">
-    </head>
-    <body>
-        <div class="container">
-</div>
-        <!-- Bootstrap core JavaScript
-    ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <!DOCTYPE html>
-        <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Fullscreen YouTube Video with Redirect</title>
-                <style>/* Fullscreen styles for the video container */html, body { margin: 0; padding: 0; height: 100%; overflow: hidden;  /* Prevent scrolling */ } #player { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style>
-            </head>
-            <body>
-                <!-- Div where the video will be embedded -->
-                <div id="player"></div>
-                <script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fullscreen YouTube Video with Redirect</title>
+
+  <style>
+    /* Fullscreen styles for the video container */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden; /* Prevent scrolling */
+    }
+    #player {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Div where the video will be embedded -->
+  <div id="player"></div>
+
+  <script>
     // Load the IFrame Player API code asynchronously
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
@@ -40,15 +38,15 @@
     var player;
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('player', {
-        videoId: 'KoH4RcdNUoU',  // Replace with your YouTube video ID
+        videoId: 'HwAPLk_sQ3w',  // Replace with your YouTube video ID
         playerVars: {
           'controls': 1,         // Show basic controls (play, pause, etc.)
           'modestbranding': 1,   // Remove YouTube logo
           'rel': 0,              // Don't show related videos at the end
           'showinfo': 0,         // Hide video title and uploader info
           'fs': 1,               // Enable fullscreen button
-          'disablekb': 1,        // Disable keyboard shortcuts
-          'autoplay': 0,         // Autoplay is disabled
+          'disablekb': 0,        // Enable keyboard shortcuts
+          'autoplay': 1,         // Autoplay enabled
           'iv_load_policy': 3,   // Hide video annotations
           'playsinline': 1       // Play the video inline (instead of fullscreen on mobile)
         },
@@ -61,20 +59,17 @@
 
     // The API will call this function when the video player is ready
     function onPlayerReady(event) {
-      event.target.playVideo();  // Autoplay the video (if desired)
+      event.target.playVideo();  // Autoplay the video
     }
 
     // This function is called when the player's state changes (e.g., video ends)
     function onPlayerStateChange(event) {
       if (event.data === YT.PlayerState.ENDED) {
         // Redirect to a specific link when the video ends
-        window.location.href = "https://tardisuniverse.com";  // Replace with your desired link
+        window.location.href = "https://example.com";  // Replace with your desired link
       }
     }
   </script>
-            </body>
-        </html>
-        <script src="assets/js/popper.min.js"></script>
-        <script src="bootstrap/js/bootstrap.min.js"></script>
-    </body>
+
+</body>
 </html>
