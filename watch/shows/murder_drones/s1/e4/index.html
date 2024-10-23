@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TADC Ep1</title>
+  <title>MD EP4</title>
 
   <style>
     /* Fullscreen styles for the video container */
@@ -38,7 +38,7 @@
     var player;
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('player', {
-        videoId: 'HwAPLk_sQ3w',  // Replace with your YouTube video ID
+        videoId: '63bUBEIhpNk',  // Replace with your YouTube video ID
         playerVars: {
           'controls': 1,         // Show basic controls (play, pause, etc.)
           'modestbranding': 1,   // Remove YouTube logo
@@ -66,7 +66,7 @@
     function onPlayerStateChange(event) {
       if (event.data === YT.PlayerState.ENDED) {
         // Redirect to a specific link when the video ends
-        window.location.href = "/watch/shows/tadc/s1/e2";  // Replace with your desired link
+        window.location.href = "/watch/shows/murder_drones/s1/e5/index.html";  // Replace with your desired link
       }
     }
     // Function to parse YouTube-style timestamps (e.g., '1m30s', '2h15m10s')
@@ -85,9 +85,9 @@ function parseTimestamp(timestamp) {
 }
 
 // Set the countdown start time using YouTube timestamp format
-var countdownStartTime = '25m14s';  // Example: '1m30s' or '2h15m10s'
+var countdownStartTime = '20m50s';  // Example: '1m30s' or '2h15m10s'
 var countdownDuration = 5;         // Countdown duration in seconds
-var redirectUrl = "/watch/shows/tadc/s1/e2";  // URL to redirect after countdown
+var redirectUrl = "/watch/shows/murder_drones/s1/e5/index.html";  // URL to redirect after countdown
 
 // Convert the timestamp to seconds
 var countdownStartTimeInSeconds = parseTimestamp(countdownStartTime);

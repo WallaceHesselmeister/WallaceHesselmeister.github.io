@@ -66,7 +66,7 @@
     function onPlayerStateChange(event) {
       if (event.data === YT.PlayerState.ENDED) {
         // Redirect to a specific link when the video ends
-        window.location.href = "https://tardisuniverse.com/stream/watch/shows/tadc/s1/e3";  // Replace with your desired link
+        window.location.href = "/watch/shows/tadc/s1/e3";  // Replace with your desired link
       }
     }
     // Function to parse YouTube-style timestamps (e.g., '1m30s', '2h15m10s')
@@ -87,7 +87,7 @@ function parseTimestamp(timestamp) {
 // Set the countdown start time using YouTube timestamp format
 var countdownStartTime = '24m46s';  // Example: '1m30s' or '2h15m10s'
 var countdownDuration = 5;         // Countdown duration in seconds
-var redirectUrl = "https://tardisuniverse.com/stream/watch/shows/tadc/s1/e3";  // URL to redirect after countdown
+var redirectUrl = "/watch/shows/tadc/s1/e3";  // URL to redirect after countdown
 
 // Convert the timestamp to seconds
 var countdownStartTimeInSeconds = parseTimestamp(countdownStartTime);
