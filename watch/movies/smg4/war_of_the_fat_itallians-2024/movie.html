@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WOTFI (2024)</title>
+
+    <style>
+        /* Fullscreen styles for the video container */
+        html, body {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          overflow: hidden; /* Prevent scrolling */
+        }
+        #player {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Div where the video will be embedded -->
+<div id="player"></div>
+
+<script>
+    // Load the IFrame Player API code asynchronously
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // This function creates an <iframe> (and YouTube player) after the API code downloads
+    var player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        videoId: 'CV8GIWxyONM',  // Replace with your YouTube video ID
+        playerVars: {
+          'controls': 1,         // Show basic controls (play, pause, etc.)
+          'modestbranding': 1,   // Remove YouTube logo
+          'rel': 0,              // Don't show related videos at the end
+          'showinfo': 0,         // Hide video title and uploader info
+          'fs': 1,               // Enable fullscreen button
+          'disablekb': 0,        // Enable keyboard shortcuts
+          'autoplay': 1,         // Autoplay enabled
+          'iv_load_policy': 3,   // Hide video annotations
+          'playsinline': 1       // Play the video inline (instead of fullscreen on mobile)
+        },
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange // Listen for player state changes
+        }
+      });
+    }
+
+    // The API will call this function when the video player is ready
+    function onPlayerReady(event) {
+      event.target.playVideo();  // Autoplay the video
+    }
+
+    // This function is called when the player's state changes (e.g., video ends)
+    function onPlayerStateChange(event) {
+      if (event.data === YT.PlayerState.ENDED) {
+        // Redirect to a specific link when the video ends
+        window.location.href = "https://tardisuniverse.com/stream/watch/shows/murder_drones/s1/e2/index.html";  // Replace with your desired link
+      }
+    }
+    // Function to parse YouTube-style timestamps (e.g., '1m30s', '2h15m10s')
+function parseTimestamp(timestamp) {
+  var totalSeconds = 0;
+  var timeRegex = /(\d+h)?(\d+m)?(\d+s)?/;
+  var match = timeRegex.exec(timestamp);
+
+  if (match) {
+    if (match[1]) totalSeconds += parseInt(match[1]) * 3600; // Hours to seconds
+    if (match[2]) totalSeconds += parseInt(match[2]) * 60;   // Minutes to seconds
+    if (match[3]) totalSeconds += parseInt(match[3]);        // Seconds
+  }
+
+  return totalSeconds;
+}
+
+// Set the countdown start time using YouTube timestamp format
+var countdownStartTime = '1h30m';  // Example: '1m30s' or '2h15m10s'
+var countdownDuration = 5;         // Countdown duration in seconds
+var redirectUrl = "/watch/shows/murder_drones/s1/e2/index.html";  // URL to redirect after countdown
+
+// Convert the timestamp to seconds
+var countdownStartTimeInSeconds = parseTimestamp(countdownStartTime);
+
+// Create the countdown element and append it to the body
+var countdownDiv = document.createElement('div');
+countdownDiv.id = 'countdown';
+countdownDiv.style.position = 'fixed';
+countdownDiv.style.top = '50%';
+countdownDiv.style.left = '50%';
+countdownDiv.style.transform = 'translate(-50%, -50%)';
+countdownDiv.style.fontSize = '36px';
+countdownDiv.style.color = '#ffffff';
+countdownDiv.style.background = 'rgba(0, 0, 0, 0.7)';
+countdownDiv.style.padding = '20px';
+countdownDiv.style.display = 'none';
+document.body.appendChild(countdownDiv);
+
+// Function to show the countdown
+function showCountdown() {
+  var timeLeft = countdownDuration;
+  countdownDiv.style.display = 'block';
+  countdownDiv.innerHTML = 'Next Episode In ' + timeLeft + ' seconds...';
+
+  var countdownInterval = setInterval(function() {
+    timeLeft--;
+    countdownDiv.innerHTML = 'Next Episode In ' + timeLeft + ' seconds...';
+
+    if (timeLeft <= 0) {
+      clearInterval(countdownInterval);
+      window.location.href = redirectUrl;
+    }
+  }, 1000); // Countdown updates every second
+}
+
+// Trigger countdown based on the video time
+function onPlayerStateChange(event) {
+  if (event.data === YT.PlayerState.PLAYING) {
+    var checkTimeInterval = setInterval(function() {
+      var currentTime = player.getCurrentTime();
+      if (currentTime >= countdownStartTimeInSeconds) {
+        clearInterval(checkTimeInterval); // Stop checking time
+        showCountdown(); // Show countdown when the video hits the specific time
+      }
+    }, 1000); // Check the time every second
+  }
+}
+
+</script>
+
+</body>
+</html>
